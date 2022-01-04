@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', false),
+    'debug' => (bool) env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -162,6 +162,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+        Laravel\Socialite\SocialiteServiceProvider::class, 
         /*
          * Package Service Providers...
          */
@@ -169,13 +170,18 @@ return [
         /*
          * Application Service Providers...
          */
+        
+
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
-    ],
+        Barryvdh\DomPDF\ServiceProvider::class,
+        App\Providers\BladeServiceProvider::class,
+        // Brian2694\Toastr\ToastrServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+],
 
     /*
     |--------------------------------------------------------------------------
@@ -226,7 +232,11 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        // 'Toastr'  => Brian2694\Toastr\Facades\Toastr::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,       
     ],
 
 ];
