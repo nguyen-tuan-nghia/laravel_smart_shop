@@ -17,8 +17,8 @@ use App\category_post;
 class brandProductController extends Controller
 {
     public function authlogin(){
-        // $admin_id=session::get('admin_id');
-        $admin_id=Auth::id();
+        $admin_id=session::get('admin_id');
+        // $admin_id=Auth::id();
         if($admin_id){
             return Redirect('/dashboard');
         }

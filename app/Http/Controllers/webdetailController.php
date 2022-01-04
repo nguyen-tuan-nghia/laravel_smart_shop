@@ -17,8 +17,8 @@ use File;
 class webdetailController extends Controller
 {
     public function authlogin(){
-        // $admin_id=session::get('admin_id');
-        $admin_id=Auth::id();
+        $admin_id=session::get('admin_id');
+        // $admin_id=Auth::id();
         if($admin_id){
             return Redirect('/dashboard');
         }
@@ -27,10 +27,12 @@ class webdetailController extends Controller
         }
     }
     public function index(){
+        $this->authlogin();
         $web=DB::table('tbl_web_detail')->first();
         return view('admin.webdetail.web')->with(compact('web'));
     }
     public function update(Request $Request){
+        $this->authlogin();
         $data=array();
         $data['web_name']=$Request->web_name;
         $data['web_address']=$Request->web_address;

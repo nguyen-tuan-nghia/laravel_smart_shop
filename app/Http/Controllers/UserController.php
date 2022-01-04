@@ -33,7 +33,7 @@ class UserController extends Controller
     }
   public function assign_roles(Request $request){
 
-        if(Auth::id()==$request->admin_id){
+        if(Session::get('admin_id')==$request->admin_id){
             Session::flash('error','Bạn không thể phân quyền cho chính mình');
             return redirect()->back();
         }

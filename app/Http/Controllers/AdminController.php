@@ -21,8 +21,7 @@ use App\customer;
 class AdminController extends Controller
 {
     public function authlogin(){
-        // $admin_id=session::get('admin_id');
-        $admin_id=Auth::id();
+        $admin_id=session::get('admin_id');
         if($admin_id){
             return Redirect('/dashboard');
         }
@@ -101,15 +100,16 @@ class AdminController extends Controller
    //  		return Redirect::to('/admin');
    //  	}
         $admin_email=$request->admin_email;
-        $admin_password=$request->admin_password;
-     if (Auth::attempt(['admin_email'=>$admin_email,'admin_password'=>$admin_password])) {
-        if(Auth::user()->hasAnyRoles(['admin','author','reply'])){
-         Session::put('admin_name',Auth::user()->admin_name);
-            Session::put('admin_id',Auth::user()->admin_id);
+        $admin_password=md5($request->admin_password);
+        $ad=admin::where('admin_email',$admin_email)->where('admin_password',$admin_password)->first();
+     if ($ad) {
+        if($ad->hasAnyRoles(['admin','author','reply'])){
+         Session::put('admin_name',$ad->admin_name);
+            Session::put('admin_id',$ad->admin_id);
          return Redirect::to('/dashboard');}
-        if(Auth::user()->hasRole('admin')){
-         Session::put('admin_name',Auth::user()->admin_name);
-            Session::put('admin_id',Auth::user()->admin_id);
+        if($ad->hasRole('admin')){
+         Session::put('admin_name',$ad->admin_name);
+            Session::put('admin_id',$ad->admin_id);
          return Redirect::to('/dashboard');}
          else{
          return Redirect::to('/admin');

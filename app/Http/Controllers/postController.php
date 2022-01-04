@@ -18,8 +18,8 @@ use Auth;
 class postController extends Controller
 {
         public function authlogin(){
-        // $admin_id=session::get('admin_id');
-        $admin_id=Auth::id();
+        $admin_id=session::get('admin_id');
+        // $admin_id=Auth::id();
         if($admin_id){
             return Redirect('/dashboard');
         }
